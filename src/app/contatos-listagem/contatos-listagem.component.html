@@ -1,7 +1,9 @@
 <h2>Contatos</h2>
 
-<ul>
-  <li *ngFor="let c of contatos" >
-    {{c.id}} - {{c.nome}}
-  </li>
-</ul>
+<mat-list>
+  <mat-list-item *ngFor="let c of contatos" >
+      <mat-icon mat-list-icon>assignment_ind</mat-icon>
+      <h4 mat-line>Identificado {{c.id}}</h4>
+      <p mat-line>Nome {{c.nome}}</p>
+  </mat-list-item>
+</mat-list>
