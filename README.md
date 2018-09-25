@@ -63,7 +63,7 @@ Agora utilize o comando ng new para criar um projeto em Angular:
 ng new ListagemAngular
 ````
 
-## Criar componente contatos-listagem
+### Criar componente contatos-listagem
 
 Para criar o componente de listagem é utilizado o comando:
 
@@ -71,7 +71,7 @@ Para criar o componente de listagem é utilizado o comando:
 ng generate component contatos-listagem
 ````
 
-## Criar service contato
+### Criar service contato
 
 Para criar o service contato é utilizado o comando:
 
@@ -79,7 +79,7 @@ Para criar o service contato é utilizado o comando:
 ng generate service contato
 ````
 
-## Model contato
+### Model contato
 
 Dentro da pasta contatos-listagem foi criado uma pasta contato e dentro dela uma model chamada contato.model.ts, contento os atributos de um contato:
 
@@ -91,7 +91,7 @@ export interface Contato{
 } 
 ````
   
-## app.component.html
+### app.component.html
 
 Dentro do html principal foi adicionado a chamada para o componente de listagem , o app-contatos-listagem:
 
@@ -101,7 +101,7 @@ Dentro do html principal foi adicionado a chamada para o componente de listagem 
 <app-contatos-listagem></app-contatos-listagem>
 ````
 
-## contatos-listagem.component.ts
+### contatos-listagem.component.ts
 
 Dentro desse arquivo foi importado a model de Contato, além da criação de um array de contatos, injeção de dependência do contatoService e a chamada ao service para obter os contatos.
 
@@ -133,7 +133,7 @@ export class ContatosListagemComponent implements OnInit {
 
 ````
 
-## contatos-listagem.component.html
+### contatos-listagem.component.html
 
 No html apenas é percorrido a lista de contatos:
 
@@ -147,7 +147,7 @@ No html apenas é percorrido a lista de contatos:
 </ul>
 ````
 
-## contato.service.ts
+### contato.service.ts
 
 No contato service é consumido a API que foi levantada utilizando o Json Server:
 
@@ -171,4 +171,150 @@ export class ContatoService {
   }
 }
 
+````
+### Impostação do contatoService
+
+No arquivo app.module.ts foi importado o contato.service e adicionado no array de providers:
+
+```javascript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { ContatosListagemComponent } from './contatos-listagem/contatos-listagem.component';
+
+import { ContatoService } from './contato.service';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ContatosListagemComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule
+  ],
+  providers: [ContatoService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+````
+
+## Angular Material
+
+### Instalação do Angular Material
+
+ [Angular Material](https://material.angular.io/) é uma biblioteca contendo um conjunto de componentes do Material Design para Angular.
+ 
+ ```javascript
+ npm install --save @angular/material @angular/cdk @angular/animations
+ ````
+
+### Importação da Animação
+
+No app.module.ts foi importado o animations
+
+
+```javascript
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+````
+
+E adicionado no array de Imports:
+
+```javascript
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule
+  ],
+````
+
+### Inclusão de um tema
+
+No arquivo styles.css foi importado o css de um tema no Angular Material:
+
+```css
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+````
+
+### Instalação do hammerjs
+
+O hammerjs é utilizado para os componentes mat-slide-toggle, mat-slider e matTooltip. Execute o seguinte comando:
+
+```javascript
+npm install --save hammerjs
+````
+
+E importe no src/main.ts:
+
+```javascript
+import 'hammerjs';
+````
+
+### Utilização do Icon do Material
+
+Na index.html adicione o css:
+
+```html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+````
+
+No app.module.ts foi adicionado o seguinte trecho de código:
+
+```javascript
+import {MatIconModule} from '@angular/material/icon';
+````
+
+E adicionado no array de imports:
+
+```javascript
+imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule
+  ],
+  ````
+
+Para utilizar o ícone:
+
+```html
+      <mat-icon>nome_icone</mat-icon>
+````
+
+### Utilização do MatNavList
+
+No app.module.ts foi adicionado o seguinte trecho de código:
+
+```javascript
+import {MatListModule} from '@angular/material/list';
+````
+
+E adicionado no array de imports:
+
+```javascript
+imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatListModule
+  ],
+  ````
+  
+  Alteração do contatos-listagem.component.html:
+  
+```html
+<h2>Contatos</h2>
+
+<mat-list>
+  <mat-list-item *ngFor="let c of contatos" >
+      <mat-icon mat-list-icon>assignment_ind</mat-icon>
+      <h4 mat-line>Identificado {{c.id}}</h4>
+      <p mat-line>Nome {{c.nome}}</p>
+  </mat-list-item>
+</mat-list>
 ````
